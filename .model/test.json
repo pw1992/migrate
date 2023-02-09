@@ -1,0 +1,114 @@
+{
+  "info": {
+    "name": "user_test",
+    "version": "1.0.0",
+    "title": "排行榜",
+    "description": "排行榜",
+    "contact": {
+      "name": "云启星辰",
+      "email": "weiping@cloudtrek.cn",
+      "url": "http://www.cloudtrek.cn/contact/"
+    },
+    "license": {
+      "name": "云启星辰源代码使用协议",
+      "url": "http://www.cloudtrek.cn/contact/"
+    }
+  },
+  "fields": [
+    {
+      "comment": "主键id",
+      "name": "id",
+      "type": "integer",
+      "example": 1,
+      "nullable": false,
+      "args": 11,
+      "extra": {
+        "title": "分类ID",
+        "description": "分类ID",
+        "type": "number",
+        "format": "int32"
+      }
+    },{
+      "comment": "用户名称",
+      "name": "name",
+      "type": "string",
+      "nullable": false,
+      "default": "",
+      "args": 256,
+      "example": "分类名称",
+      "extra": {
+        "title": "分类名称",
+        "description": "分类名称",
+        "type": "string"
+      }
+    },{
+      "comment": "用户年龄",
+      "name": "age",
+      "type": "integer",
+      "nullable": false,
+      "default": "",
+      "args": 10,
+      "example": "",
+      "extra": {
+        "title": "主图",
+        "description": "主图",
+        "type": "string"
+      }
+    },{
+      "comment": "性别",
+      "name": "sex",
+      "type": "string",
+      "nullable": false,
+      "default": "男",
+      "args": 10,
+      "example": "",
+      "extra": {
+        "title": "主图",
+        "description": "主图",
+        "type": "string"
+      }
+    },{
+      "comment": "出生日期",
+      "name": "birth",
+      "type": "timestamp",
+      "nullable": true,
+      "default": null,
+      "example": "",
+      "extra": {
+        "title": "出生日期",
+        "description": "出生日期",
+        "type": "string"
+      }
+    },{
+      "comment": "数据",
+      "name": "data",
+      "type": "json",
+      "nullable": true,
+      "default": null,
+      "example": "",
+      "extra": {
+        "title": "数据",
+        "description": "数据",
+        "type": "string"
+      }
+    },{
+      "comment": "性别1",
+      "name": "sex1",
+      "type": "string",
+      "nullable": true,
+      "default": "女",
+      "args": 100,
+      "example": "",
+      "extra": {
+        "title": "主图",
+        "description": "主图",
+        "type": "string"
+      }
+    }
+  ],
+  "indexes": [
+    {"field": "id","type": "primary", "auto_increments": true},
+    {"field": "name", "type":"unique"},
+    {"field": "sex1", "type":"unique"}
+  ]
+}
