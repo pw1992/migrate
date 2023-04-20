@@ -52,15 +52,14 @@ func (t *Table) IsTableExists() bool {
 	//sqlStr := fmt.Sprintf("SELECT COUNT(*) as cnt FROM information_schema.TABLES WHERE table_name ='%s'", t.TableName)
 	sqlStr := fmt.Sprintf("show tables")
 	query, _ := t.Db.Query(sqlStr)
-	stables := make([]showTable, 0)
-	if query.Next() {
+	stables := make([]string, 0)
+	for query.Next() {
 		var stable showTable
 		query.Scan(&stable.TableName)
-		stables = append(stables, stable)
+		stables = append(stables, stable.TableName)
 	}
-
 	for _, v := range stables {
-		if v.TableName == t.TableName {
+		if v == t.TableName {
 			return true
 		}
 	}
