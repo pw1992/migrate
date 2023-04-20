@@ -44,22 +44,30 @@ func (t *Table) Connect(dsn string) *Table {
 	return t
 }
 
-//判断表是否存在
+// 判断表是否存在
 func (t *Table) IsTableExists() bool {
-	type Cnt struct {
-		Cnt uint
+	type showTable struct {
+		TableName string
 	}
-	sqlStr := fmt.Sprintf("SELECT COUNT(*) as cnt FROM information_schema.TABLES WHERE table_name ='%s'", t.TableName)
+	//sqlStr := fmt.Sprintf("SELECT COUNT(*) as cnt FROM information_schema.TABLES WHERE table_name ='%s'", t.TableName)
+	sqlStr := fmt.Sprintf("show tables")
 	query, _ := t.Db.Query(sqlStr)
-	var cnt Cnt
+	stables := make([]showTable, 0)
 	if query.Next() {
-		query.Scan(&cnt.Cnt)
+		var stable showTable
+		query.Scan(&stable.TableName)
+		stables = append(stables, stable)
 	}
 
-	return cnt.Cnt >= 1
+	for _, v := range stables {
+		if v.TableName == t.TableName {
+			return true
+		}
+	}
+	return false
 }
 
-//新增表
+// 新增表
 func (t *Table) CreateTable() *Table {
 	if t.IsTableExists() {
 		return t
@@ -79,19 +87,19 @@ func (t *Table) CreateTable() *Table {
 	return t
 }
 
-//创建字段
+// 创建字段
 func (t *Table) CreateColumn(c *Column) *Table {
 	t.NewColumn[c.Name] = c
 	return t
 }
 
-//删除字段
+// 删除字段
 func (t *Table) DeleteColumn(c *Column) *Table {
 	t.DelColumn[c.Name] = c
 	return t
 }
 
-//获取表结构
+// 获取表结构
 func (t *Table) DescTable() *Table {
 	//显示表结构信息
 	query, err := t.Db.Query("desc " + t.TableName)
@@ -183,7 +191,7 @@ func (t *Table) DescTable() *Table {
 	return t
 }
 
-//升级表
+// 升级表
 func (t *Table) Upgrade() {
 	t.DescTable() //获取表结构数据
 

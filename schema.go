@@ -52,7 +52,7 @@ func (b *SchemaBuild) getFiles(dirPath string) []string {
 	return files
 }
 
-//数据库升级
+// 数据库升级
 func (b *SchemaBuild) Upgrade(dirPath string, dsn string) *SchemaBuild {
 	modelFiles := b.getFiles(dirPath)
 	for _, fileName := range modelFiles {
