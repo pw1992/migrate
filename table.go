@@ -295,6 +295,10 @@ func (t *Table) Upgrade() {
 func sqlStr(columns []*Column, addType string) string {
 	sql := ``
 	for _, column := range columns {
+		//主键忽略处理
+		if column.Indexes.Key == "PRI" {
+			continue
+		}
 		switch column.Type {
 		case "varchar", "char":
 			sql = fmt.Sprintf("%s %s COLUMN %s %s(%d) COMMENT '%s' ",
